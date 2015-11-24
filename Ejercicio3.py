@@ -43,23 +43,4 @@ def bootstrap(pendiente, posicion):
     print "El intervalo de confianza al 95% para la pendiente es desde {} hasta {}".format(limite_bajo_1, limite_alto_1)
     print "El intervalo de confianza al 95% para el coef de posicion es desde {} hasta {}".format(limite_bajo_2, limite_alto_2)
 
-# Main
-c = np.polyfit(datos()[0], datos()[2], 1)
-pendiente = montecarlo(datos()[0], datos()[1], datos()[2], datos()[3])[0]
-posicion = montecarlo(datos()[0], datos()[1], datos()[2], datos()[3])[1]
-bootstrap(pendiente, posicion)
 
-
-# Grafiquito
-x = np.linspace(-100, 500, 600)
-fig1 = plt.figure()
-ax1 = fig1.add_subplot(111)
-
-ax1.errorbar(datos()[0], datos()[2], xerr=datos()[1], yerr=datos()[3], fmt="go", label="Datos experimentales")
-ax1.plot(x, c[1] + x*c[0], color="m", label="Ajuste lineal")
-
-ax1.set_xlabel("Flujo banda i $[10^{-6}Jy]$")
-ax1.set_ylabel("Flujo banda z $[10^{-6}Jy]$")
-
-plt.legend(loc='lower right')
-plt.show()
