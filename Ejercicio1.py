@@ -5,11 +5,13 @@ from scipy.optimize import leastsq
 
 np.random.seed(1911)
 
+
 def cargar_datos():
     datos = np.loadtxt("data/hubble_original.dat")
     d = datos[:, 0]
     v = datos[:, 1]
     return d, v, datos
+
 
 def funcion_modelo(parametro, variable):
     '''
@@ -18,6 +20,7 @@ def funcion_modelo(parametro, variable):
     d = (1 / Ho) * v (Caso 2) #2
     '''
     return parametro * variable
+
 
 def minimizar(x, y, N):
     '''
@@ -29,6 +32,7 @@ def minimizar(x, y, N):
     resultado = leastsq(funcion, i, args=(x, y))
 
     return resultado[:2]
+
 
 def bootstrap():
     '''
@@ -45,7 +49,8 @@ def bootstrap():
     H = np.sort(H)
     lim_inf = H[int(N_boot * 0.025)]
     lim_sup = H[int(N_boot * 0.975)]
-    print "El intervalo de confianza al 95% es desde {} hasta {}".format(lim_inf, lim_sup)
+    print ("El intervalo de confianza al 95 % es desde\n"
+           "    {} hasta {}"). format(lim_inf, lim_sup)
 
 # Setup
 distancia = cargar_datos()[0]
@@ -75,4 +80,3 @@ ax1.set_ylabel("Velocidad $[km/s]$")
 
 plt.legend(loc='lower right')
 plt.show()
-

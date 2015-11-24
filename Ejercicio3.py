@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 np.random.seed(1911)
 
+
 def datos():
     data = np.loadtxt("data/DR9Q.dat", usecols=(80, 81, 82, 83))
     banda_i = data[:, 0] * 3.631
@@ -11,6 +12,7 @@ def datos():
     banda_z = data[:, 2] * 3.631
     error_z = data[:, 3] * 3.631
     return banda_i, error_i, banda_z, error_z
+
 
 def montecarlo(banda_i, error_i, banda_z, error_z):
     '''
@@ -28,6 +30,7 @@ def montecarlo(banda_i, error_i, banda_z, error_z):
 
     return pendiente, posicion
 
+
 def bootstrap(pendiente, posicion):
     '''
     Bootstrap para encontrar el intervalo de confianza al 95%
@@ -39,8 +42,10 @@ def bootstrap(pendiente, posicion):
     limalto1 = pendiente[int(N_mc * 0.975)]
     limbajo2 = posicion[int(N_mc * 0.025)]
     limalto2 = posicion[int(N_mc * 0.975)]
-    print "El intervalo de confianza al 95% para la pendiente es desde {} hasta {}".format(limbajo1, limalto1)
-    print "El intervalo de confianza al 95% para el coef de posicion es desde {} hasta {}".format(limbajo2, limalto2)
+    print ("El intervalo de confianza al 95 % para la pendiente es\n"
+           "    desde {} hasta {}").format(limbajo1, limalto1)
+    print ("El intervalo de confianza al 95 % para el coef de posicion es\n"
+           "    desde {} hasta {}").format(limbajo2, limalto2)
 
 
 # Main
@@ -48,13 +53,15 @@ c = np.polyfit(datos()[0], datos()[2], 1)
 pendiente = montecarlo(datos()[0], datos()[1], datos()[2], datos()[3])[0]
 posicion = montecarlo(datos()[0], datos()[1], datos()[2], datos()[3])[1]
 bootstrap(pendiente, posicion)
+print "Recta = {}x + {}".format(c[0], c[1])
 
 # Grafiquito
 x = np.linspace(-100, 500, 600)
 fig1 = plt.figure()
 ax1 = fig1.add_subplot(111)
 
-ax1.errorbar(datos()[0], datos()[2], xerr=datos()[1], yerr=datos()[3], fmt="go", label="Datos experimentales")
+ax1.errorbar(datos()[0], datos()[2], xerr=datos()[1], yerr=datos()[3],
+             fmt="go", label="Datos experimentales")
 ax1.plot(x, c[1] + x*c[0], color="m", label="Ajuste lineal")
 
 ax1.set_xlabel("Flujo banda i $[10^{-6}Jy]$")
