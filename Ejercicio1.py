@@ -47,5 +47,32 @@ def bootstrap():
     lim_sup = H[int(N_boot * 0.975)]
     print "El intervalo de confianza al 95% es desde {} hasta {}".format(lim_inf, lim_sup)
 
+# Setup
+distancia = cargar_datos()[0]
+velocidad = cargar_datos()[1]
 
+# Main
+H_01 = minimizar(distancia, velocidad, 100.)[0]
+H_02 = 1/minimizar(velocidad, distancia, 100.)[0]
+H_prom = (H_01 + H_02) / 2
+
+bootstrap()
+print "Valor estimado H_0 =", H_prom[0]
+
+# Grafiquito
+fig = plt.figure()
+fig.clf()
+ax1 = fig.add_subplot(111)
+
+ax1.plot(distancia, velocidad, 'bo', label="Datos experimentales")
+ax1.plot(distancia, H_prom * distancia, 'y-', label="Promedio $H_0$")
+ax1.plot(distancia, H_01 * distancia, 'g--', label="$v = H_0*D$")
+ax1.plot(distancia, H_02 * distancia, 'r--', label="$D = v/H_0$")
+
+ax1.set_xlim([-0.5, 2.5])
+ax1.set_xlabel("Distancia $[Mpc]$")
+ax1.set_ylabel("Velocidad $[km/s]$")
+
+plt.legend(loc='lower right')
+plt.show()
 
