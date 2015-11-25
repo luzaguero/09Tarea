@@ -49,8 +49,8 @@ def bootstrap():
     H = np.sort(H)
     lim_inf = H[int(N_boot * 0.025)]
     lim_sup = H[int(N_boot * 0.975)]
-    print ("El intervalo de confianza al 95 % es desde\n"
-           "    {} hasta {}"). format(lim_inf, lim_sup)
+    print ("El intervalo de confianza al 95 % es\n"
+           "   desde {} hasta {}"). format(lim_inf, lim_sup)
 
 # Setup
 distancia = cargar_datos()[0]
@@ -64,7 +64,7 @@ H_prom = (H_01 + H_02) / 2
 bootstrap()
 print "Valor estimado H_0 =", H_prom[0]
 
-# Grafiquito
+# Grafico
 fig = plt.figure()
 fig.clf()
 ax1 = fig.add_subplot(111)
@@ -78,5 +78,6 @@ ax1.set_xlim([-0.5, 2.5])
 ax1.set_xlabel("Distancia $[Mpc]$")
 ax1.set_ylabel("Velocidad $[km/s]$")
 
+plt.title("Nebulosas")
 plt.legend(loc='lower right')
 plt.show()

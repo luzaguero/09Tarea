@@ -67,5 +67,6 @@ ax1.plot(x, c[1] + x*c[0], color="m", label="Ajuste lineal")
 ax1.set_xlabel("Flujo banda i $[10^{-6}Jy]$")
 ax1.set_ylabel("Flujo banda z $[10^{-6}Jy]$")
 
+plt.title("Quasares, catalogo Data Release 9 (SDSS)")
 plt.legend(loc='lower right')
 plt.show()

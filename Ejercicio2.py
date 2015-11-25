@@ -66,7 +66,7 @@ bootstrap()
 print "Valor estimado H_0 =", H_prom[0]
 
 
-# Grafiquito
+# Grafico
 fig = plt.figure()
 fig.clf()
 ax1 = fig.add_subplot(111)
@@ -79,5 +79,6 @@ ax1.plot(distancia, H_02 * distancia, 'r--', label="$D = v/H_0$")
 ax1.set_xlabel("Distancia $[Mpc]$")
 ax1.set_ylabel("Velocidad $[km/s]$")
 
+plt.title("Supernovas tipo I")
 plt.legend(loc='lower right')
 plt.show()
